@@ -26,11 +26,22 @@ public class Alarm {
     }
 
     public void alarmOn() {
-        alarmManager.setExact(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
     }
 
     public void alarmOff() {
         alarmManager.cancel(pendingIntent);
     }
 
+    public Card getCard() {
+        return card;
+    }
+
+    public PendingIntent getPendingIntent() {
+        return pendingIntent;
+    }
+
+    public Calendar getCalendar() {
+        return calendar;
+    }
 }
