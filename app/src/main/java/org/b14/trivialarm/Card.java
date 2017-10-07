@@ -1,11 +1,15 @@
 package org.b14.trivialarm;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Eric on 10/7/17.
  */
 
-public abstract class Card {
-    String subject, question, answer;
+public abstract class Card implements Parcelable {
+
+    String subject, question;
 
     public void setSubject(String s) {
         subject = s;
@@ -23,20 +27,8 @@ public abstract class Card {
         return question;
     }
 
-    public void setAnswer(String a) {
-        answer = a;
+    @Override
+    public int describeContents() {
+        return CONTENTS_FILE_DESCRIPTOR;
     }
-
-    public String getAnswer() {
-        return answer;
-    }
-
-    public boolean checkResponse(String response) {
-        return response.equals(answer);
-    }
-
-
-
-
-
 }
