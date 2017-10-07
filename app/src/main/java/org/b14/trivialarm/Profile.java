@@ -1,10 +1,52 @@
 package org.b14.trivialarm;
 
+import android.os.Parcelable;
+import android.os.Parcel;
+
 /**
  * Created by Eric on 10/7/17.
  */
 
-public class Profile {
+public class Profile implements Parcelable {
+
+    /////////////////////////////
+    //  Begin Parcelable APIs  //
+    /////////////////////////////
+
+    public static final int CONTENTS_FILE_DESCRIPTOR = 1618;
+
+    private Profile(Parcel in) {
+        Deck deck = in.readParcelable(getClass().getClassLoader());
+        setDeck(deck);
+        setName(in.readString());
+        setPoints(in.readInt());
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        // is this usage of flags correct?
+        dest.writeParcelable(deck, flags);
+        dest.writeString(name);
+        dest.writeInt(points);
+    }
+
+    @Override
+    public int describeContents() {
+        return CONTENTS_FILE_DESCRIPTOR;
+    }
+
+    public static final Parcelable.Creator<Profile> CREATOR = new Parcelable.Creator<Profile>() {
+        public Profile createFromParcel(Parcel in) {
+            return new Profile(in);
+        }
+        public Profile[] newArray(int size) {
+            return new Profile[size];
+        }
+    };
+
+    /////////////////////////////
+    //   End Parcelable APIs   //
+    /////////////////////////////
 
     private Deck deck;
     private String name;
