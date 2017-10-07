@@ -9,19 +9,50 @@ import android.os.Parcelable;
 
 public class SACard extends Card {
 
-    private String answer;
-    public final int CONTENTS_FILE_DESCRIPTOR = 1901;
+    /////////////////////////////
+    //  Begin Parcelable APIs  //
+    /////////////////////////////
 
-    public SACard(String subject, String question, String answer) {
-        setSubject(subject);
-        setQuestion(question);
-        setAnswer(answer);
-    }
+    public static final int CONTENTS_FILE_DESCRIPTOR = 1901;
+
+    public static final int x = 2;
 
     private SACard(Parcel in) {
         setSubject(in.readString());
         setQuestion(in.readString());
         setAnswer(in.readString());
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(getSubject());
+        dest.writeString(getQuestion());
+        dest.writeString(answer);
+    }
+    @Override
+    public int describeContents() {
+        return CONTENTS_FILE_DESCRIPTOR;
+    }
+
+    public static final Parcelable.Creator<SACard> CREATOR = new Parcelable.Creator<SACard>() {
+        public SACard createFromParcel(Parcel in) {
+            return new SACard(in);
+        }
+        public SACard[] newArray(int size) {
+            return new SACard[size];
+        }
+    };
+
+    /////////////////////////////
+    //   End Parcelable APIs   //
+    /////////////////////////////
+
+    private String answer;
+
+    public SACard(String subject, String question, String answer) {
+        setSubject(subject);
+        setQuestion(question);
+        setAnswer(answer);
     }
 
     public void setAnswer(String a) {
@@ -35,21 +66,4 @@ public class SACard extends Card {
     public boolean checkResponse(String response) {
         return response.equals(answer);
     }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(subject);
-        dest.writeString(question);
-        dest.writeString(answer);
-    }
-
-    public static final Parcelable.Creator<SACard> CREATOR = new Parcelable.Creator<SACard>() {
-        public SACard createFromParcel(Parcel in) {
-            return new SACard(in);
-        }
-        public SACard[] newArray(int size) {
-            return new SACard[size];
-        }
-    };
-
 }

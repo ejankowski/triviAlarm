@@ -13,7 +13,48 @@ import java.util.Map.Entry;
 
 public class Deck implements Parcelable {
 
-    public final int CONTENTS_FILE_DESCRIPTOR = 4311;
+    /////////////////////////////
+    //  Begin Parcelable APIs  //
+    /////////////////////////////
+
+    public static final int CONTENTS_FILE_DESCRIPTOR = 4311;
+
+    private Deck(Parcel in) {
+        randomGenerator = new Random();
+        container = new HashMap<>();
+        Bundle bundle = in.readBundle();
+        for (String subject : bundle.keySet()) {
+            ArrayList<Card> subDeck = bundle.getParcelableArrayList(subject);
+            container.put(subject, subDeck);
+        }
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        Bundle bundle = new Bundle();
+        for (Entry<String, ArrayList<Card>> entry : container.entrySet()) {
+            bundle.putParcelableArrayList(entry.getKey(), entry.getValue());
+        }
+        dest.writeBundle(bundle);
+    }
+
+    @Override
+    public int describeContents() {
+        return CONTENTS_FILE_DESCRIPTOR;
+    }
+
+    public static final Parcelable.Creator<Deck> CREATOR = new Parcelable.Creator<Deck>() {
+        public Deck createFromParcel(Parcel in) {
+            return new Deck(in);
+        }
+        public Deck[] newArray(int size) {
+            return new Deck[size];
+        }
+    };
+
+    /////////////////////////////
+    //   End Parcelable APIs   //
+    /////////////////////////////
 
     private Random randomGenerator;
     private HashMap<String, ArrayList<Card>> container;
@@ -24,16 +65,6 @@ public class Deck implements Parcelable {
         container = new HashMap<>();
         for(String subject : defaultSubjects) {
             addSubDeck(subject);
-        }
-    }
-
-    private Deck(Parcel in) {
-        randomGenerator = new Random();
-        container = new HashMap<>();
-        Bundle bundle = in.readBundle();
-        for (String subject : bundle.keySet()) {
-            ArrayList<Card> subDeck = bundle.getParcelableArrayList(subject);
-            container.put(subject, subDeck);
         }
     }
 
@@ -77,26 +108,12 @@ public class Deck implements Parcelable {
         return false;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        Bundle bundle = new Bundle();
-        for (Entry<String, ArrayList<Card>> entry : container.entrySet()) {
-            bundle.putParcelableArrayList(entry.getKey(), entry.getValue());
+    public ArrayList<Card> cardList() {
+        ArrayList<Card> cards = new ArrayList<>();
+        for (String s : container.keySet()) {
+            cards.addAll(container.get(s));
         }
-        dest.writeBundle(bundle);
+        return cards;
     }
 
-    @Override
-    public int describeContents() {
-        return CONTENTS_FILE_DESCRIPTOR;
-    }
-
-    public static final Parcelable.Creator<Deck> CREATOR = new Parcelable.Creator<Deck>() {
-        public Deck createFromParcel(Parcel in) {
-            return new Deck(in);
-        }
-        public Deck[] newArray(int size) {
-            return new Deck[size];
-        }
-    };
 }

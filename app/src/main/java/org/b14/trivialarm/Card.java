@@ -9,7 +9,7 @@ import android.os.Parcelable;
 
 public abstract class Card implements Parcelable {
 
-    String subject, question;
+    private String subject, question;
 
     public void setSubject(String s) {
         subject = s;
@@ -25,10 +25,5 @@ public abstract class Card implements Parcelable {
 
     public String getQuestion() {
         return question;
-    }
-
-    @Override
-    public int describeContents() {
-        return CONTENTS_FILE_DESCRIPTOR;
     }
 }

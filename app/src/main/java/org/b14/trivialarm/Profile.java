@@ -9,7 +9,44 @@ import android.os.Parcel;
 
 public class Profile implements Parcelable {
 
-    public final int CONTENTS_FILE_DESCRIPTOR = 1618;
+    /////////////////////////////
+    //  Begin Parcelable APIs  //
+    /////////////////////////////
+
+    public static final int CONTENTS_FILE_DESCRIPTOR = 1618;
+
+    private Profile(Parcel in) {
+        Deck deck = in.readParcelable(getClass().getClassLoader());
+        setDeck(deck);
+        setName(in.readString());
+        setPoints(in.readInt());
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        // is this usage of flags correct?
+        dest.writeParcelable(deck, flags);
+        dest.writeString(name);
+        dest.writeInt(points);
+    }
+
+    @Override
+    public int describeContents() {
+        return CONTENTS_FILE_DESCRIPTOR;
+    }
+
+    public static final Parcelable.Creator<Profile> CREATOR = new Parcelable.Creator<Profile>() {
+        public Profile createFromParcel(Parcel in) {
+            return new Profile(in);
+        }
+        public Profile[] newArray(int size) {
+            return new Profile[size];
+        }
+    };
+
+    /////////////////////////////
+    //   End Parcelable APIs   //
+    /////////////////////////////
 
     private Deck deck;
     private String name;
@@ -19,13 +56,6 @@ public class Profile implements Parcelable {
         resetDeck();
         setName(name);
         setPoints(0);
-    }
-
-    private Profile(Parcel in) {
-        Deck deck = in.readParcelable(getClass().getClassLoader());
-        setDeck(deck);
-        setName(in.readString());
-        setPoints(in.readInt());
     }
 
     public void setDeck(Deck d) {
@@ -64,27 +94,5 @@ public class Profile implements Parcelable {
     public int getPoints() {
         return points;
     }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        // is this usage of flags correct?
-        dest.writeParcelable(deck, flags);
-        dest.writeString(name);
-        dest.writeInt(points);
-    }
-
-    @Override
-    public int describeContents() {
-        return CONTENTS_FILE_DESCRIPTOR;
-    }
-
-    public static final Parcelable.Creator<Profile> CREATOR = new Parcelable.Creator<Profile>() {
-        public Profile createFromParcel(Parcel in) {
-            return new Profile(in);
-        }
-        public Profile[] newArray(int size) {
-            return new Profile[size];
-        }
-    };
 
 }
