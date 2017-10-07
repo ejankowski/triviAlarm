@@ -99,6 +99,12 @@ public class Deck implements Parcelable {
         return subDeck.get(index);
     }
 
+    public Card getCard() {
+        ArrayList<Card> cards = cardList();
+        int index = randomGenerator.nextInt(cards.size());
+        return cards.get(index);
+    }
+
     public boolean removeCard(Card card) {
         String subject = card.getSubject();
         if (containsSubDeck(subject)) {
