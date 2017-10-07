@@ -23,6 +23,36 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".AlarmActivity"
+            android:label="@string/title_activity_alarm" />
+        <activity
+            android:name=".QuestionActivity"
+            android:label="@string/title_activity_question" />
+        <activity
+            android:name=".ProfileActivity"
+            android:label="@string/title_activity_profile" />
+        <activity
+            android:name=".FeedActivity"
+            android:label="@string/title_activity_feed" />
+        <activity
+            android:name=".AddQuestionActivity"
+            android:label="@string/title_activity_add_question"
+            android:parentActivityName=".QuestionActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.b14.trivialarm.QuestionActivity" />
+        </activity>
+        <activity
+            android:name=".AddAlarmActivity"
+            android:label="@string/title_activity_add_alarm"
+            android:parentActivityName=".AlarmActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.b14.trivialarm.AlarmActivity" />
+        </activity>
     </application>
 
 </manifest>
