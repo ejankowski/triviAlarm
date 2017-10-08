@@ -14,6 +14,11 @@ public class AlertActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        // only one of the following needs to be changed to an actual value
+        String shortAnswer = null;
+        final int optionIndex = -1;
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alert);
 
@@ -22,8 +27,7 @@ public class AlertActivity extends AppCompatActivity {
             alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         }
         final Ringtone ringtone = RingtoneManager.getRingtone(this, alarmUri);
-        /**
-         * Sorry Shravan had to comment this to test the product
+
         final Card card = Deck.getCard();
 
         //submitAnswer = (Button) findViewById(R.id.submitAnswer);
@@ -31,7 +35,7 @@ public class AlertActivity extends AppCompatActivity {
         submitAnswer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (answerCheck(card)) {
+                if (answerCheck(card, shortAnswer, optionIndex)) {
                     ringtone.stop();
                 }
             }
@@ -40,13 +44,11 @@ public class AlertActivity extends AppCompatActivity {
         while (true) {
             ringtone.play();
         }
-         **/
 
     }
 
-    public boolean answerCheck(Card card) {
-        return true;
+    public boolean answerCheck(Card card, String shortAnswer, int option) {
+        return card.checkResponse(shortAnswer, option);
     }
-
 
 }

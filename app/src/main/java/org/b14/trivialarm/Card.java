@@ -26,4 +26,6 @@ public abstract class Card implements Parcelable {
     public String getQuestion() {
         return question;
     }
+
+    public abstract boolean checkResponse(String shortAnswer, int option);
 }

@@ -63,7 +63,8 @@ public class SACard extends Card {
         return answer;
     }
 
-    public boolean checkResponse(String response) {
-        return response.equals(answer);
+    @Override
+    public boolean checkResponse(String shortAnswer, int option) {
+        return shortAnswer.equals(answer);
     }
 }

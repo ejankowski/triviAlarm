@@ -84,7 +84,8 @@ public class MCCard extends Card {
         return getOption(answerIndex);
     }
 
-    public boolean checkResponse(int index) {
-        return index == answerIndex;
+    @Override
+    public boolean checkResponse(String shortAnswer, int option) {
+        return option == answerIndex;
     }
 }
