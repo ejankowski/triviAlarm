@@ -22,6 +22,8 @@ public class AlertActivity extends AppCompatActivity {
             alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         }
         final Ringtone ringtone = RingtoneManager.getRingtone(this, alarmUri);
+        /**
+         * Sorry Shravan had to comment this to test the product
         final Card card = Deck.getCard();
 
         //submitAnswer = (Button) findViewById(R.id.submitAnswer);
@@ -38,6 +40,7 @@ public class AlertActivity extends AppCompatActivity {
         while (true) {
             ringtone.play();
         }
+         **/
 
     }
 

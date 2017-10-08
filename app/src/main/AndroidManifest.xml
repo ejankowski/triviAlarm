@@ -30,6 +30,7 @@
             android:name=".AlarmService"
             android:enabled="true" />
         <receiver android:name=".AlarmReceiver" />
+        <activity android:name=".AddQuestionActivity" ></activity>
     </application>
 
 </manifest>

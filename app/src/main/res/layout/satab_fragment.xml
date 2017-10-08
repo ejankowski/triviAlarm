@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/subjectView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Subject?"
+        android:layout_alignBaseline="@+id/subjectInput"
+        android:layout_alignBottom="@+id/subjectInput"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="17dp"
+        android:layout_marginStart="17dp" />
+    <EditText
+        android:id="@+id/subjectInput"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:inputType="text"
+        android:hint="Enter your subject here"
+        android:layout_marginTop="38dp"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/answerView"
+        android:layout_toEndOf="@+id/answerView" />
+
+    <TextView
+        android:id="@+id/questionView"
+        android:layout_width="133dp"
+        android:layout_height="wrap_content"
+        android:text="Question?"
+        android:layout_alignBaseline="@+id/questionInput"
+        android:layout_alignBottom="@+id/questionInput"
+        android:layout_alignLeft="@+id/textView"
+        android:layout_alignStart="@+id/textView" />
+    <EditText
+        android:id="@+id/questionInput"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:inputType="text"
+        android:hint="Enter your question here"
+        android:layout_below="@+id/subjectInput"
+        android:layout_toRightOf="@+id/questionView"
+        android:layout_toEndOf="@+id/questionView"
+        android:layout_marginTop="15dp" />
+    <TextView
+        android:id="@+id/answerView"
+        android:layout_width="133dp"
+        android:layout_height="wrap_content"
+        android:text="Answer?"
+        android:layout_alignBaseline="@+id/answerInput"
+        android:layout_alignBottom="@+id/answerInput"
+        android:layout_alignLeft="@+id/questionView"
+        android:layout_alignStart="@+id/questionView" />
+    <EditText
+        android:id="@+id/answerInput"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:inputType="text"
+        android:hint="Enter your answer here"
+        android:layout_marginTop="28dp"
+        android:layout_below="@+id/questionInput"
+        android:layout_alignRight="@+id/subjectInput"
+        android:layout_alignEnd="@+id/subjectInput" />
+
+
+
+    <Button
+        android:id="@+id/submitSAButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/answerInput"
+        android:layout_marginLeft="53dp"
+        android:layout_marginStart="53dp"
+        android:layout_marginTop="53dp"
+        android:layout_toEndOf="@+id/textView"
+        android:layout_toRightOf="@+id/textView"
+        android:text="Submit" />
+</RelativeLayout>
