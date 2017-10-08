@@ -24,7 +24,7 @@ public class AlertActivity extends AppCompatActivity {
         final Ringtone ringtone = RingtoneManager.getRingtone(this, alarmUri);
         final Card card = Deck.getCard();
 
-        submitAnswer = (Button) findViewById(R.id.submitAnswer);
+        //submitAnswer = (Button) findViewById(R.id.submitAnswer);
 
         submitAnswer.setOnClickListener(new View.OnClickListener() {
             @Override

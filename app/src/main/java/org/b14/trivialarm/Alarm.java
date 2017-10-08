@@ -3,7 +3,8 @@ package org.b14.trivialarm;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.icu.util.Calendar;
-import android.widget.TextView;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 
 /**
@@ -13,24 +14,32 @@ import android.widget.TextView;
 public class Alarm {
 
     AlarmManager alarmManager;
+    private int hour;
+    private int minute;
     private PendingIntent pendingIntent;
-    private Calendar calendar;
     private Card card;
+    private Calendar calendar;
+    private boolean on;
 
-    public Alarm(int hour, int minute, PendingIntent p, Card c) {
+    public Alarm(int h, int m, PendingIntent p, Card c) {
+        hour = h;
+        minute = m;
         calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, hour);
         calendar.set(Calendar.MINUTE, minute);
         pendingIntent = p;
         card = c;
+        on = false;
     }
 
     public void alarmOn() {
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+        on = true;
     }
 
     public void alarmOff() {
         alarmManager.cancel(pendingIntent);
+        on = false;
     }
 
     public Card getCard() {
@@ -43,5 +52,9 @@ public class Alarm {
 
     public Calendar getCalendar() {
         return calendar;
+    }
+
+    public boolean isOn() {
+        return on;
     }
 }
