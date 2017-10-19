@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
     private QuestionsPageAdapter mQuestionsPageAdapter;
 
-    private Deck deck;
+    protected Deck deck;
 
     private ViewPager mViewPager;
 
@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         deck = new Deck();
         mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
-        mQuestionsPageAdapter = new QuestionsPageAdapter(deck, this);
+        mQuestionsPageAdapter = new QuestionsPageAdapter(this, deck);
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
                 String q = data.getStringExtra(ShortAnswerTabFragment.QUESTION);
                 Log.d(TAG, q);
                 mQuestionsPageAdapter.addSAQuestion(sub, q, a);
+                mQuestionsPageAdapter.notifyDataSetChanged();
 
             }
         }

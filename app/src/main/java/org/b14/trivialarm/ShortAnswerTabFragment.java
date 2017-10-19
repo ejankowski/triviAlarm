@@ -31,7 +31,6 @@ public class ShortAnswerTabFragment extends Fragment {
         View view = inflater.inflate(R.layout.satab_fragment, container, false);
 
         submit = view.findViewById(R.id.submitSAButton);
-        Log.d("HELP", "ME");
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

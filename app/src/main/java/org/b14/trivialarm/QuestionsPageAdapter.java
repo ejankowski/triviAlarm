@@ -1,82 +1,80 @@
 package org.b14.trivialarm;
 
 import android.content.Context;
-import android.util.Log;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log; //useful
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
-import android.widget.TextView;
-
 import java.util.ArrayList;
-import java.util.HashMap;
-
 /**
- * Created by colinaxner on 10/7/17.
+ * Adapter for RecyclerView
  */
 
-public class QuestionsPageAdapter extends BaseAdapter {
+public class QuestionsPageAdapter extends RecyclerView.Adapter<QuestionsViewHolder> {
     private final Deck data;
     private Context context;
     private LayoutInflater layoutInflater;
-    private int size = 0;
     private ArrayList<Card> items;
+    private int size = 0;
 
-
-    public QuestionsPageAdapter(Deck data, Context context) {
+    public QuestionsPageAdapter(Context context, Deck data) {
         this.data = data;
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
         items = new ArrayList<>();
     }
 
-    public void addSAQuestion(String subject, String question, String answer) {
-        Card  card = new SACard(subject, question, answer);
-        size+=1;
-        data.addCard(card);
-        items.add(card);
-        Log.d("ADAPTER", question);
+    @Override
+    public QuestionsViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+        // Inflate an item view.
+        View mItemView = layoutInflater.inflate(R.layout.list_layout, parent, false);
+        return new QuestionsViewHolder(mItemView, this);
     }
 
     @Override
-    public int getCount() {
+    public void onBindViewHolder(QuestionsViewHolder holder, int position) {
+        // Retrieve the data for that position
+        Card item = items.get(position);
+        String mQuestion = item.getQuestion();
+        String mSubject = item.getSubject();
+        // Add the data to the view
+        holder.questionItemView.setText(mQuestion);
+        holder.subjectItemView.setText(mSubject);
+        holder.setPosition(position);
+    }
+
+    @Override
+    public void onViewRecycled(QuestionsViewHolder holder) {
+        holder.itemView.setOnLongClickListener(null);
+        super.onViewRecycled(holder);
+    }
+
+    @Override
+    public int getItemCount() {
         return size;
     }
 
-    @Override
-    public Object getItem(int i) {
-        return items.get(i);
+    /**
+     * Adds the SA Question to the Database and Adapter stores it locally.
+     * @param subject : Subject of the Question.
+     * @param question : Question of the Short Answer Question
+     * @param answer : Answer for the Question
+     */
+    public void addSAQuestion(String subject, String question, String answer) {
+        Card card = new SACard(subject, question, answer);
+        size++;
+        data.addCard(card);
+        items.add(card);
     }
 
-    @Override
-    public long getItemId(int i) {
-        return 0;
+    /**
+     * Allows for the deletion of a question.
+     * @param position : position of the item in the RecyclerView list.
+     */
+    public void deleteQuestion(int position) {
+        items.remove(position);
+        size--;
     }
 
-    @Override
-    public View getView(int i, View convertView, ViewGroup viewGroup) {
-        MyViewHolder mViewHolder;
-        Log.d("FUCK", "ME");
-        if (convertView == null) {
-            convertView = layoutInflater.inflate(R.layout.list_layout, viewGroup, false);
-            mViewHolder = new MyViewHolder(convertView);
-            convertView.setTag(mViewHolder);
-        } else {
-            mViewHolder = (MyViewHolder) convertView.getTag();
-        }
-
-        Card currentListData = (Card)getItem(i);
-        Log.d("VIEWW", currentListData.getQuestion());
-        mViewHolder.question.setText(currentListData.getQuestion());
-
-        return convertView;
-    }
-    private class MyViewHolder {
-        TextView question;
-
-        public MyViewHolder(View item) {
-            question = (TextView) item.findViewById(R.id.questionViewList);
-        }
-    }
 }
